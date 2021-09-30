@@ -49,9 +49,9 @@ public class Pru {
 		b[0] = false;
 		b[1] = false;
 
-		for (int i = 2; i < b.length; i++) {
+		for (int i = 2; i < Math.sqrt(b.length); i++) {
 			if (b[i]) {
-				for (int j = i * 2; j < b.length; j = j + i) {
+				for (int j = i * i; j < b.length; j = j + i) {
 					b[j] = false;
 				}
 			}
@@ -62,7 +62,7 @@ public class Pru {
 				numeros.add(i);
 			}
 		}
-		return numeros.get(pos);
+		return numeros.get(pos-1);
 //		int res = 0, aux = 0;
 //		for (int i = 2; i < b.length; i++)  {
 //			if (b[i]) {
@@ -70,6 +70,7 @@ public class Pru {
 //			}
 //			if (aux == pos) {
 //				res = i;
+//				break;
 //			}
 //		}
 //		return res;
