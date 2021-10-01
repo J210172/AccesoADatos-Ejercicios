@@ -1,12 +1,18 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Scanner;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.thoughtworks.xstream.*;
+import com.thoughtworks.xstream.io.json.AbstractJsonWriter.Type;
 
 public class Ejercicios {
 
 	public static void main(String[] args) {
-		ejer8();
-
+		json1();
+		
 	}
 
 	public static void ejem(String[] args) {
@@ -197,25 +203,58 @@ public class Ejercicios {
 
 
 	}
+	
+	public static void json1() {
+		BufferedReader jsonF;
+		try {
+			jsonF = new BufferedReader(new FileReader("C:\\DAW2\\MOCK_DATA.json"));
+			Gson gson = new Gson();
+			gson.toJson("penepito");
+			String json="", line;
+			while ((line = jsonF.readLine()) != null) {
+				json+=line;
+			}
+			Type collectionType = new TypeToken<Collection<Integer>>(){}.getType();
+			Collection<Integer> ints2 = gson.fromJson(json, collectionType);
+			for (Integer integer : ints2) {
+				System.out.println(integer );
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
 
 class Profesor implements Serializable {
-	private int antiguedad;
-	private String nombre;
+	private int edad;
+	private String nombre, apellido;
 
-	public Profesor(int antiguedad, String nombre) {
+	public Profesor(int edad, String nombre, String apellido) {
 		super();
-		this.antiguedad = antiguedad;
+		this.edad = edad;
 		this.nombre = nombre;
+		this.apellido = apellido;
+	}
+	
+	public int getEdad() {
+		return edad;
 	}
 
-	public int getAntiguedad() {
-		return antiguedad;
+	public void setEdad(int edad) {
+		this.edad = edad;
 	}
 
-	public void setAntiguedad(int antiguedad) {
-		this.antiguedad = antiguedad;
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
 	}
 
 	public String getNombre() {
@@ -228,7 +267,7 @@ class Profesor implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Profesor [antiguedad=" + antiguedad + ", nombre=" + nombre + "]";
+		return "Profesor [antiguedad=" + edad + ", nombre=" + nombre + "]";
 	}
 	
 }
