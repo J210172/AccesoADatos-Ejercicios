@@ -1,0 +1,11 @@
+<list>
+  <Profesor>
+    <nombre>pepe</nombre>
+    <departamento>23</departamento>
+    <antiguedad>21.4</antiguedad>
+    <asignaturas>
+      <string>pew</string>
+      <string>paw</string>
+    </asignaturas>
+  </Profesor>
+</list>

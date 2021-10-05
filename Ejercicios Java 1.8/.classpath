@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
 		<attributes>
+			<attribute name="module" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
@@ -11,12 +12,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/DAM2Alu9/Documents/gson-2.8.5.jar" sourcepath="C:/Users/DAM2Alu9/Documents/xstream-1.4.18/lib/xstream-1.4.18.jar">
-		<attributes>
-			<attribute name="source_encoding" value="ISO-8859-1"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/DAM2Alu9/Documents/xstream-1.4.18.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
