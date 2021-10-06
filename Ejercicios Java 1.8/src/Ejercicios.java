@@ -11,7 +11,7 @@ import com.thoughtworks.xstream.io.json.AbstractJsonWriter.Type;
 public class Ejercicios {
 
 	public static void main(String[] args) {
-		ejer6("patata");
+		ejer6("pa");
 		
 	}
 
@@ -230,27 +230,7 @@ public class Ejercicios {
 	}
 	
 	public static void json1() {
-		BufferedReader jsonF;
-		try {
-			jsonF = new BufferedReader(new FileReader("C:\\DAW2\\MOCK_DATA.json"));
-			Gson gson = new Gson();
-			gson.toJson("penepito");
-			String json="", line;
-			while ((line = jsonF.readLine()) != null) {
-				json+=line;
-			}
-			Type collectionType = new TypeToken<Collection<Integer>>(){}.getType();
-			Collection<Integer> ints2 = gson.fromJson(json, collectionType);
-			for (Integer integer : ints2) {
-				System.out.println(integer );
-			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 }
