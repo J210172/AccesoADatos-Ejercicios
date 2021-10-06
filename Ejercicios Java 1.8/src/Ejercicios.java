@@ -11,7 +11,7 @@ import com.thoughtworks.xstream.io.json.AbstractJsonWriter.Type;
 public class Ejercicios {
 
 	public static void main(String[] args) {
-		json1();
+		ejer6("patata");
 		
 	}
 
@@ -144,6 +144,31 @@ public class Ejercicios {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static void ejer6(String word) {
+		try {
+			FileInputStream fis = new FileInputStream("C:\\DAW2\\Test.txt");
+			int aux, i = 0, nrep = 0;
+			char str[] = word.toLowerCase().toCharArray();
+			while ((aux = fis.read()) >= 0) {
+				if (i == str.length) {
+					nrep++;
+					i = 0;
+				} else if ((aux < 'a' ? (char)(aux+32): (char)aux) == str[i]) { //Character.toLowerCase()
+					i++;
+				} else {
+					i = 0;
+				}
+//				System.out.print((char)aux);
+			}
+			System.out.println("\nLa palabra: \"" + word + "\" se ha repetido: " + nrep + " veces");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public static void ejer7() {
