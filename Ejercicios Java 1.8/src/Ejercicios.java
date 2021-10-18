@@ -11,8 +11,13 @@ import com.thoughtworks.xstream.io.json.AbstractJsonWriter.Type;
 public class Ejercicios {
 
 	public static void main(String[] args) {
+<<<<<<< Upstream, based on origin/main
 		ejer6("pa");
 		
+=======
+		ejer8();
+
+>>>>>>> cbb64be SQL update
 	}
 
 	public static void ejem(String[] args) {
@@ -186,51 +191,83 @@ public class Ejercicios {
 
 	public static void ejer8() {
 		Profesor[] profesores = new Profesor[4];
-		Scanner scan = new Scanner(System.in);
+//		Scanner scan = new Scanner(System.in);
 		for (int i = 0; i < profesores.length; i++) {
-			System.out.print("Introduce el nombre: ");
-			String nombre = scan.nextLine();
-			System.out.print("Introduce la edad: ");
-			profesores[i] = new Profesor(scan.nextInt(), nombre);
-			scan.nextLine();
+//			System.out.print("Introduce el nombre: ");
+//			String nombre = scan.nextLine();
+//			System.out.print("Introduce la edad: ");
+			profesores[i] = new Profesor("Algo", 2, 3, new String[] { "A", "B" });
+//			scan.nextLine();
 		}
-		scan.close();
+//		scan.close();
 		try {
 			ObjectOutputStream oos;
 			File file = new File("C:\\DAW2\\pares.txt");
+			if (file.createNewFile()) {
+				System.out.println("archivo " + file.getName() + " crado");
+			}
 			if (file.exists()) {
 				oos = new ObjectOutputStream(new FileOutputStream(file));
 				for (Profesor p : profesores) {
 					oos.writeObject(p);
-				} 
+				}
 				oos.close();
 				System.out.println("\nArchivo Escrito");
 			} else {
 				System.err.println("El archivo no existe");
 			}
-			
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-		
-			Object temp;
-			
-			while ((temp = ois.readObject()) != null) {
-				if (temp instanceof Profesor) {
-					System.out.println(((Profesor) temp).toString());
+
+			if (file.exists()) {
+				
+				ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+
+				Object temp;
+
+				while ((temp = ois.readObject()) != null) {
+					if (temp instanceof Profesor) {
+						System.out.println(((Profesor) temp).toString());
+					}
 				}
 				
-				
+			} else {
+				System.err.println("El archivo no existe");
 			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-
 	}
-	
+
 	public static void json1() {
+<<<<<<< Upstream, based on origin/main
 		
+=======
+		BufferedReader jsonF;
+		try {
+			jsonF = new BufferedReader(new FileReader("C:\\DAW2\\MOCK_DATA.json"));
+			Gson gson = new Gson();
+			gson.toJson("penepito");
+			String json = "", line;
+			while ((line = jsonF.readLine()) != null) {
+				json += line;
+			}
+			Type collectionType = new TypeToken<Collection<Integer>>() {
+			}.getType();
+			Collection<Integer> ints2 = gson.fromJson(json, collectionType);
+			for (Integer integer : ints2) {
+				System.out.println(integer);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+>>>>>>> cbb64be SQL update
 	}
 
 }
