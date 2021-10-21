@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DBConnection implements Connection{
+public class DBConnection {
 	private String driver;
 	private String database;
 	private String hostname;
@@ -14,7 +14,7 @@ public class DBConnection implements Connection{
 	private String username;
 	private String password;
 	private Statement stmt;
-	private Connection conecta;
+	private Connection connection;
 
 	public DBConnection() {
 		this.driver = "com.mysql.cj.jdbc.Driver";
@@ -28,6 +28,7 @@ public class DBConnection implements Connection{
 	}
 
 	public DBConnection(String database) {
+		this.driver = "com.mysql.cj.jdbc.Driver";
 		this.database = database;
 		this.hostname = "localhost";
 		this.port = "3306";
@@ -64,8 +65,8 @@ public class DBConnection implements Connection{
 		try {
 			DriverManager.getDriver(url);
 			Class.forName(driver);
-			conecta = DriverManager.getConnection(url, username, password);
-			stmt = conecta.createStatement();
+			connection = DriverManager.getConnection(url, username, password);
+			stmt = connection.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -89,6 +90,32 @@ public class DBConnection implements Connection{
 	 * 
 	 * SELECT * FROM users.users where users.first_name = 'Pepe';
 	 */
+	
+
+	public ResultSet consultaLocalidadFormulario1(String cadenaSQL) throws SQLException {
+		Statement stmt;
+		stmt = connection.createStatement();
+		return (stmt.executeQuery(cadenaSQL));
+	}
+	
+	public ResultSet consultaLocalidadFormulario2(String localidad) {
+		try {
+			PreparedStatement stmt;
+			String sentenciaSQL = "SELECT * FROM Socio";
+			if (localidad.isEmpty())
+				stmt = connection.prepareStatement(sentenciaSQL);
+			else {
+				sentenciaSQL = "SELECT * FROM Socio WHERE  localidad = ?";
+				stmt = connection.prepareStatement(sentenciaSQL);
+				stmt.setString(1, localidad);
+			}
+
+			return (stmt.executeQuery());
+
+		} catch (SQLException e) {
+			return null;
+		}
+	}
 	
 	
 	public String getDriver() {

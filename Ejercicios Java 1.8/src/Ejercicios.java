@@ -11,13 +11,9 @@ import com.thoughtworks.xstream.io.json.AbstractJsonWriter.Type;
 public class Ejercicios {
 
 	public static void main(String[] args) {
-<<<<<<< Upstream, based on origin/main
-		ejer6("pa");
-		
-=======
+
 		ejer8();
 
->>>>>>> cbb64be SQL update
 	}
 
 	public static void ejem(String[] args) {
@@ -242,9 +238,6 @@ public class Ejercicios {
 	}
 
 	public static void json1() {
-<<<<<<< Upstream, based on origin/main
-		
-=======
 		BufferedReader jsonF;
 		try {
 			jsonF = new BufferedReader(new FileReader("C:\\DAW2\\MOCK_DATA.json"));
@@ -254,9 +247,8 @@ public class Ejercicios {
 			while ((line = jsonF.readLine()) != null) {
 				json += line;
 			}
-			Type collectionType = new TypeToken<Collection<Integer>>() {
-			}.getType();
-			Collection<Integer> ints2 = gson.fromJson(json, collectionType);
+			Type collectionType = (Type) new TypeToken<Collection<Integer>>() {}.getType();
+			Collection<Integer> ints2 = gson.fromJson(json, (java.lang.reflect.Type) collectionType);
 			for (Integer integer : ints2) {
 				System.out.println(integer);
 			}
@@ -267,7 +259,6 @@ public class Ejercicios {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
->>>>>>> cbb64be SQL update
 	}
 
 }
