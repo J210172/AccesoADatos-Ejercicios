@@ -1,10 +1,13 @@
 package windows;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 public class Panel1 extends JPanel {
 	private JTable table;
@@ -14,23 +17,13 @@ public class Panel1 extends JPanel {
 		table = new JTable();
 		table.setCellSelectionEnabled(true);
 		table.setColumnSelectionAllowed(true);
-		table.setModel(new DefaultTableModel(
-			new String[][] {
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-				{"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"},
-			},
-			new String[] {
-				"ID", "Nombre", "FirstName", "LastName", "Passwrd", "Gender"
-			}
-		));
-		add(table);
+		setInfo();
+		add(new JScrollPane(table), BorderLayout.CENTER);
 		setBackground(Color.BLACK);
+	}
+	
+	private void setInfo() {
+		
+		table.setModel(null);
 	}
 }
