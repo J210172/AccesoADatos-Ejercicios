@@ -109,7 +109,6 @@ public class GenericConnections {
 			else {
 				sentenciaSQL = "SELECT * FROM " + tabla;
 				stmt = connection.prepareStatement(sentenciaSQL);
-				stmt.setMaxRows(20);
 			}
 			return (stmt.executeQuery());
 		} catch (SQLException e) {
