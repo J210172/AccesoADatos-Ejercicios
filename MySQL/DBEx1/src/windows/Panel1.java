@@ -9,6 +9,8 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import com.mysql.cj.xdevapi.Table;
+
 import db.GenericConnections;
 
 import java.awt.BorderLayout;
@@ -19,32 +21,40 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JLabel;
+import javax.swing.ListSelectionModel;
 
 public class Panel1 extends JPanel {
 	private JTable table;
 
 	public Panel1() {
-		setInfo();
 		setLayout(new BorderLayout(0, 0));
-		JScrollPane scrollPane = new JScrollPane();
-		add(scrollPane);
+		setBackground(Color.BLACK);
 		
-		table = new JTable();
-		table.setColumnSelectionAllowed(true);
-		table.setCellSelectionEnabled(true);
-		scrollPane.setViewportView(table);
+		table = new JTable(){
+	        private static final long serialVersionUID = 1L;
+
+	        public boolean isCellEditable(int row, int column) {                
+	                return false;               
+	        };
+	    };
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		setInfo();
+		table.setColumnSelectionAllowed(false);
+		table.setCellSelectionEnabled(false);
+		table.setRowSelectionAllowed(true);
+		JScrollPane scrollPane = new JScrollPane(table);
+		add(scrollPane, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();
-		scrollPane.setColumnHeaderView(panel);
+		add(panel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("Mi tabla");
 		panel.add(lblNewLabel);
-		setBackground(Color.BLACK);
 	}
 
 	private void setInfo() {
 		Vector<Vector<String>> data = new Vector<>();
-		ArrayList<String> tempD = new ArrayList<>();
+		Vector<String> tempD = new Vector<>();
 		Vector<String> header = new Vector<>();
 		try {
 			GenericConnections gc = new GenericConnections("users");
@@ -57,16 +67,19 @@ public class Panel1 extends JPanel {
 			}
 
 			for (int i = 0; res.next(); i++) {
-				tempD = new ArrayList<>();
+				tempD = new Vector<>();
 
 				for (int j = 1; j <= columnSize; j++) {
 					tempD.add(res.getString(j));
+//					System.out.println(res.getString(j));
 				}
-				data.add(new Vector<>(tempD));
+				data.add(tempD);
 			}
-
+			table.setModel(new DefaultTableModel(data, header));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

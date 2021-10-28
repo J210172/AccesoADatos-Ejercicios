@@ -10,8 +10,6 @@ public class MainFrame extends JFrame{
 	public MainFrame() {
 		generalSize = new Dimension(900, 500);
 		mainContentPanel = new Panel1();
-		
-		
 		setContentPane(mainContentPanel);
 		mainContentPanel.setVisible(true);
 		mainContentPanel.setSize(generalSize);
@@ -21,6 +19,4 @@ public class MainFrame extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
 	}
-	
-	
 }
