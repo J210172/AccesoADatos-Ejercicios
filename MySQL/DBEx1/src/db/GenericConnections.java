@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.mysql.cj.jdbc.DatabaseMetaData;
+
 public class GenericConnections {
 	private String driver;
 	private String database;
@@ -17,53 +19,29 @@ public class GenericConnections {
 	private String password;
 	private Statement stmt;
 	private Connection connection;
-
-	public GenericConnections() {
-		this.driver = "com.mysql.cj.jdbc.Driver";
-		this.database = "baloncesto";
-		this.hostname = "localhost";
-		this.port = "3306";
-		this.url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?serverTimezone=Europe/Madrid";
-		this.username = "root";
-		this.password = "root";
-		connect();
-	}
+	private DatabaseMetaData databaseMetaData;
 
 	public GenericConnections(String database) {
-		this.driver = "com.mysql.cj.jdbc.Driver";
-		this.database = database;
-		this.hostname = "localhost";
-		this.port = "3306";
-		this.url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?serverTimezone=Europe/Madrid";
-		this.username = "root";
-		this.password = "root";
-		connect();
-
-	}
-
-	public GenericConnections(String user, String passwrd) {
-		this.driver = "com.mysql.cj.jdbc.Driver";
-		this.database = "baloncesto";
-		this.hostname = "localhost";
-		this.port = "3306";
-		this.url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?serverTimezone=Europe/Madrid";
-		this.username = "root";
-		this.password = "root";
-		connect();
+		connect(database, "localhost", "root", "root");
 	}
 
 	public GenericConnections(String database, String user, String passwrd) {
-		this.driver = "com.mysql.cj.jdbc.Driver";
-		this.database = database;
-		this.hostname = "localhost";
-		this.port = "3306";
-		this.url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?serverTimezone=Europe/Madrid";
-		this.username = user;
-		this.password = passwrd;
-		connect();
+		connect(database, "localhost", user, passwrd);
+	}
+	
+	public GenericConnections(String database, String hostname, String user, String passwrd) {
+		connect(database, hostname, user, passwrd);
 	}
 
-	private void connect() {
+	private void connect(String database, String hostname, String user, String passwrd) {
+		this.driver = "com.mysql.cj.jdbc.Driver";
+		this.database = database;
+		this.username = user;
+		this.password = passwrd;
+		this.hostname = hostname;
+		this.port = "3306";
+		this.url = "jdbc:mysql://" + hostname + ":" + port + "/" + database + "?serverTimezone=Europe/Madrid";
+		
 		try {
 			DriverManager.getDriver(url);
 			Class.forName(driver);
