@@ -1,12 +1,16 @@
+import java.awt.FlowLayout;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.plaf.basic.BasicSplitPaneUI.BasicHorizontalLayoutManager;
+import javax.swing.text.FlowView;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -24,12 +28,11 @@ public class EjemploAsociaciones3 {
 
 		String hql = "from Empleados where oficio = 'DIRECTOR'";
 		Query cons = session.createQuery(hql);
-
-		MyFrame myF = new MyFrame(cons.list().stream().map((Empleados obj) -> obj.getApellido()));
-
-		session.close();
-		System.exit(0);
-
+		List<Empleados> empleados = cons.list();
+		
+		MyFrame myF = new MyFrame(empleados.stream().map(emp -> emp.getApellido()).toArray(String[]::new));
+		
+		session.close();		
 	}
 }
 
@@ -41,15 +44,13 @@ class MyFrame extends JFrame {
 		setSize(300,300);	
 		
 		contentPane = new JPanel();
+		contentPane.setLayout(new FlowLayout());
 		setContentPane(contentPane);
 		
-		JComboBox<String> myCB = new JComboBox<>(lista);
+		JComboBox<String> myCB = new JComboBox<>();
+		myCB.setModel(new DefaultComboBoxModel<>(lista));
 		contentPane.add(myCB);
 		
 		setVisible(true);
-	}
-
-	public MyFrame(Class<Arrays> class1) {
-		// TODO Auto-generated constructor stub
 	}
 }
