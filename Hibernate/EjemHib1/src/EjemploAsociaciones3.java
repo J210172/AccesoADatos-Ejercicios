@@ -29,8 +29,16 @@ public class EjemploAsociaciones3 {
 		String hql = "from Empleados where oficio = 'DIRECTOR'";
 		Query cons = session.createQuery(hql);
 		List<Empleados> empleados = cons.list();
+
+
+		Query cons2 = session.createQuery("from empleados where empno = 1");
+		if (cons.uniqueResult() == null) {
+			
+		}
 		
-		MyFrame myF = new MyFrame(empleados.stream().map(emp -> emp.getApellido()).toArray(String[]::new));
+		MyFrame myF = new MyFrame(empleados.stream().map(Empleados::getApellido).toArray(String[]::new));
+//		MyFrame myF = new MyFrame();
+//		empleados.forEach(myF::addItem);
 		
 		session.close();		
 	}
@@ -38,8 +46,18 @@ public class EjemploAsociaciones3 {
 
 class MyFrame extends JFrame {
 	private JPanel contentPane;
-
+	private JComboBox<String> myCB;
+	
 	public MyFrame(String[] lista) {
+		setUp();
+		myCB.setModel(new DefaultComboBoxModel<String>(lista));
+	}
+	
+	public MyFrame() {
+		setUp();
+	}
+	
+	void setUp() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(300,300);	
 		
@@ -47,10 +65,13 @@ class MyFrame extends JFrame {
 		contentPane.setLayout(new FlowLayout());
 		setContentPane(contentPane);
 		
-		JComboBox<String> myCB = new JComboBox<>();
-		myCB.setModel(new DefaultComboBoxModel<>(lista));
+		myCB = new JComboBox<>();
 		contentPane.add(myCB);
 		
 		setVisible(true);
+	}
+	
+	public void addItem(Empleados emp) {
+		myCB.addItem(emp.getApellido());
 	}
 }
