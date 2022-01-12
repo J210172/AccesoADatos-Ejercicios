@@ -30,15 +30,12 @@ public class EjemploAsociaciones3 {
 		Query cons = session.createQuery(hql);
 		List<Empleados> empleados = cons.list();
 
-
 		Query cons2 = session.createQuery("from empleados where empno = 1");
 		if (cons.uniqueResult() == null) {
 			
 		}
 		
-		MyFrame myF = new MyFrame(empleados.stream().map(Empleados::getApellido).toArray(String[]::new));
-//		MyFrame myF = new MyFrame();
-//		empleados.forEach(myF::addItem);
+		MyFrame myF = new MyFrame(empleados.stream().map(Empleados::getSalario).toArray(Float[]::new));
 		
 		session.close();		
 	}
@@ -46,11 +43,11 @@ public class EjemploAsociaciones3 {
 
 class MyFrame extends JFrame {
 	private JPanel contentPane;
-	private JComboBox<String> myCB;
+	private JComboBox<Float> myCB;
 	
-	public MyFrame(String[] lista) {
+	public MyFrame(Float[] lista) {
 		setUp();
-		myCB.setModel(new DefaultComboBoxModel<String>(lista));
+		myCB.setModel(new DefaultComboBoxModel<Float>(lista));
 	}
 	
 	public MyFrame() {
@@ -66,12 +63,13 @@ class MyFrame extends JFrame {
 		setContentPane(contentPane);
 		
 		myCB = new JComboBox<>();
+		myCB.getModel().addListDataListener(myCB);
 		contentPane.add(myCB);
 		
 		setVisible(true);
 	}
 	
 	public void addItem(Empleados emp) {
-		myCB.addItem(emp.getApellido());
+		myCB.addItem(emp.getSalario());
 	}
 }
